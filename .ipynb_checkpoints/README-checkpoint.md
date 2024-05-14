@@ -15,6 +15,6 @@ todo:
 - [ ] host folium plot in a web socket 
 - [ ] find / generate more google earth testdata for testing 
 - [ ] bring in new test data via .csv 
-- [ ] refactor RSQL.py
+- [ ] refactor RSQL.py (much later)
 
 
