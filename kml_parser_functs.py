@@ -3,6 +3,8 @@ import random as rd
 import bs4 as bs
 from bs4 import BeautifulSoup
 import kml_object 
+import random as rnd 
+
 
 def parse_coord_string(coord_string):
     longitudes = []
@@ -57,4 +59,7 @@ def parse_KML(filename):
         obj_list.append(kml_object.Object(featurename,coords,featuretype))
         
     return project_name, obj_list
+
+
+
 
