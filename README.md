@@ -2,7 +2,7 @@
 Tools for viewing and handling GPS located data for use in agriculture 
 
 
-todo: 
+## todo: 
 
 - [ ] add a data dump to text file for the object class 
 - [ ] add a data point matrix to the objet class 
