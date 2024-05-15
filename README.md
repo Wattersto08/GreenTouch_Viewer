@@ -16,5 +16,7 @@ todo:
 - [ ] find / generate more google earth testdata for testing 
 - [ ] bring in new test data via .csv 
 - [ ] refactor RSQL.py (much later)
+- [ ] return coordinate midpoint for farm - for folium look @
+
 
 

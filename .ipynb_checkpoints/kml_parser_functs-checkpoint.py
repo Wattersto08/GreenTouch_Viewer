@@ -3,6 +3,8 @@ import random as rd
 import bs4 as bs
 from bs4 import BeautifulSoup
 import kml_object 
+import random as rnd 
+
 
 def parse_coord_string(coord_string):
     longitudes = []
@@ -22,10 +24,25 @@ def parse_coord_string(coord_string):
         
     op = []
     for i in range(len(longitudes)):
-        op.append([longitudes[i],latitudes[i]])
+        op.append([latitudes[i],longitudes[i]])
     
     return op
 
+def convert_coord_lisstring_to_lisfloats(inputlist):
+    op = []
+    for i in inputlist:
+        op.append([float(i[0]),float(i[1])])
+
+    return op 
+
+def get_midpoint(list_of_coords):
+    xav = 0
+    yav=0
+    for i in list_of_coords:
+        xav = xav+i[0]
+        yav = yav+i[1]
+
+    return [(xav/len(list_of_coords),yav/len(list_of_coords))]
 
 def parse_KML(filename):
     file = open(filename, "r")
@@ -43,8 +60,9 @@ def parse_KML(filename):
     for feature in features:
         
         featurename = str(feature.find_all('name'))[11:-12]
-        coords = parse_coord_string(feature.coordinates.text)
-
+        coords = convert_coord_lisstring_to_lisfloats(parse_coord_string(feature.coordinates.text))
+        midpoint = get_midpoint(coords)[0]
+        
         if feature.find('Polygon'):
             featuretype = 'polygon'
 
@@ -54,7 +72,11 @@ def parse_KML(filename):
         if feature.find('LineString'):
             featuretype = 'LineString'
         
-        obj_list.append(kml_object.Object(featurename,coords,featuretype))
         
+        obj_list.append(kml_object.Object(featurename,coords,featuretype,midpoint))
+    
     return project_name, obj_list
+
+
+
 
