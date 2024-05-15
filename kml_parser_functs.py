@@ -35,6 +35,13 @@ def convert_coord_lisstring_to_lisfloats(inputlist):
 
     return op 
 
+def get_farm_midpoint(featurelist):
+    b = []
+    for f in featurelist:
+        a = f.coords
+        b = b + a 
+    return b 
+
 def get_midpoint(list_of_coords):
     xav = 0
     yav=0
@@ -43,6 +50,16 @@ def get_midpoint(list_of_coords):
         yav = yav+i[1]
 
     return [(xav/len(list_of_coords),yav/len(list_of_coords))]
+
+def get_limits(coords):
+    x = []
+    y = []
+    for coord in coords:
+        x.append(coord[0])
+        y.append(coord[1])
+
+    return [[min(x),min(y)],[max(x),max(y)]]
+
 
 def parse_KML(filename):
     file = open(filename, "r")
@@ -75,7 +92,12 @@ def parse_KML(filename):
         
         obj_list.append(kml_object.Object(featurename,coords,featuretype,midpoint))
     
-    return project_name, obj_list
+    get_farm_midpoint(obj_list)
+    
+    for obj in obj_list:
+        obj.get_limits()
+        
+    return project_name, get_midpoint(get_farm_midpoint(obj_list)), obj_list
 
 
 
