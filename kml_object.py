@@ -1,5 +1,7 @@
 import random 
-
+from shapely.geometry import Point, Polygon
+import math as m
+from matrixmath import get_matrix
 color_options = ['blue',  'darkgreen', 'darkred', 'green', 'lightblue', 'lightgray', 'lightgreen', 'orange', 'pink','purple', 'red', 'white']
 
 class Object:
@@ -12,10 +14,12 @@ class Object:
         self.Type = Type
         self.color = color_options[random.randint(0,len(color_options)-1)]
         self.crop = 'white_grape'
-        self.crop_bearing = 0 
+        self.crop_bearing = 15
         self.limits = self.get_limits()
-        self.matrix_res = 10 
+        self.matrix_res = 30
+        self.matrix_coords = []
         
+
     def __str__(self):
         return f"{self.name} - {self.crop}"
     
@@ -36,5 +40,7 @@ class Object:
                 y.append(coord[1])
 
             self.limits = [[min(x),min(y)],[max(x),max(y)]]
-        
-        
+    
+ 
+    def calc_matrix(self):
+        self.matrix_coords = get_matrix(self.coords,self.limits,self.matrix_res,self.midpoint,self.crop_bearing)
